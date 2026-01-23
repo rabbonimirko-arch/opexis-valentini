@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <title>Opexis Digital – Assistente AI Twynet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+  <style>
+    :root{
+      --opexis-blue:#004aad;
+      --bg:#020617;
+      --line:rgba(148,163,184,.22);
+      --txt:#e5e7eb;
+      --muted:#94a3b8;
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+
+    html, body{
+      width:100%;
+      height:100%;
+      background:var(--bg);
+      color:var(--txt);
+      font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    }
+
+    /* Layout: topbar + iframe full height restante */
+    body{
+      min-height: 100svh;
+      display:flex;
+      flex-direction:column;
+      padding:
+        env(safe-area-inset-top)
+        env(safe-area-inset-right)
+        env(safe-area-inset-bottom)
+        env(safe-area-inset-left);
+    }
+
+    .topbar{
+      flex:0 0 auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+
+      padding:10px 12px;
+      border-bottom:1px solid var(--line);
+      background:rgba(2,8,23,.70);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .brand{
+      display:flex;
+      flex-direction:column;
+      min-width:0;
+    }
+    .brand .t1{
+      font-weight:800;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      font-size:12px;
+      color:#fff;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .brand .t2{
+      font-size:10px;
+      color:var(--muted);
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    .btn{
+      flex:0 0 auto;
+      border:1px solid var(--line);
+      background:rgba(2,6,23,.55);
+      color:#fff;
+      text-decoration:none;
+      font-weight:800;
+      font-size:12px;
+      padding:10px 12px;
+      border-radius:999px;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      cursor:pointer;
+      user-select:none;
+    }
+    .btn:active{ transform:translateY(1px); }
+
+    .ai-wrap{
+      flex:1 1 auto;
+      min-height:0; /* IMPORTANT: permette all’iframe di riempire senza tagliare */
+      position:relative;
+      background:#000;
+    }
+
+    iframe{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      border:0;
+      background:#000;
+    }
+
+    .hint{
+      position:absolute;
+      left:10px;
+      right:10px;
+      bottom:10px;
+      padding:10px 12px;
+      border-radius:14px;
+      background:rgba(2,8,23,.55);
+      border:1px solid rgba(148,163,184,.20);
+      color:#dbeafe;
+      font-size:11px;
+      line-height:1.25;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      pointer-events:none;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <a class="btn" href="index.html" aria-label="Torna alla home">← Home</a>
+
+    <div class="brand">
+      <div class="t1">OPE<span style="color:var(--opexis-blue)">XIS</span> · AI Twynet</div>
+      <div class="t2">Parla con l’assistente (microfono consentito)</div>
+    </div>
+
+    <button class="btn" type="button" id="reloadBtn" aria-label="Ricarica avatar">↻ Ricarica</button>
+  </header>
+
+  <main class="ai-wrap">
+    <!-- IFRAME FULLSCREEN (HeyGen) -->
+    <iframe
+      id="aiFrame"
+      title="Opexis AI – HeyGen"
+      allow="microphone; autoplay; clipboard-write"
+      referrerpolicy="no-referrer"
+    ></iframe>
+
+   
+  </main>
+
+  <script>
+    // ✅ Usa lo stesso “share” del tuo ai.html originale, ma in iframe fullscreen
+    const host = "https://labs.heygen.com";
+    const share = "eyJxdWFsaXR5IjoiaGlnaCIsImF2YXRhck5hbWUiOiJHcmFoYW1fUHJvZmVzc2lvbmFsTG9vazJf%0D%0AcHVibGljIiwicHJldmlld0ltZyI6Imh0dHBzOi8vZmlsZXMyLmhleWdlbi5haS9hdmF0YXIvdjMv%0D%0AZmY1MGY4NzRkODIxNDAwY2JhZWZkZTlmZjkyYjZhNzNfNTU4NTAvcHJldmlld190YWxrXzEud2Vi%0D%0AcCIsIm5lZWRSZW1vdmVCYWNrZ3JvdW5kIjp0cnVlLCJrbm93bGVkZ2VCYXNlSWQiOiIwN2FjZTY4%0D%0AYjMxZmU0MDM1OTFkZDRjZGNhOTM4ZDY5ZiIsInVzZXJuYW1lIjoiZmI0MGNkYjU2N2VmNGMxODkw%0D%0AMzg0OTA4MjljMjBlNmYifQ%3D%3D";
+
+    // Parametro inIFrame=1 per compatibilità embed
+    const src = host + "/guest/streaming-embed?share=" + share + "&inIFrame=1";
+
+    const frame = document.getElementById("aiFrame");
+    frame.src = src;
+
+    // Ricarica “pulita”
+    document.getElementById("reloadBtn").addEventListener("click", () => {
+      frame.src = src + "&t=" + Date.now();
+    });
+  </script>
+</body>
+</html>

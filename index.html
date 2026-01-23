@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>Opexis Digital – NFC AI Landing</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+<style>
+:root{
+  --blue:#004aad;
+  --line:rgba(148,163,184,.25);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+  min-height:100vh;
+  background:url("13.png") center/cover no-repeat fixed;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:rgba(2,6,23,.7);
+}
+
+.phone{
+  width:100%;
+  max-width:460px;
+  height:100vh;
+  background:rgba(2,8,23,.75);
+  backdrop-filter:blur(10px);
+  padding:16px;
+  color:#fff;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  position:relative;
+  z-index:1;
+}
+
+header{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.logo{
+  width:42px;height:42px;border-radius:50%;
+  background:var(--blue);
+  display:flex;align-items:center;justify-content:center;
+  font-weight:800;
+}
+header div span:first-child{
+  font-size:14px;font-weight:700;letter-spacing:.08em;
+}
+header div span:last-child{
+  font-size:11px;color:#c2d4ff;
+}
+
+/* CONTATTO */
+.card{
+  background:rgba(2,6,23,.6);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:12px;
+}
+.card h2{
+  font-size:14px;margin-bottom:6px;
+}
+.card .meta{
+  font-size:12px;margin-bottom:10px;
+}
+.card a{color:#d1e3ff;text-decoration:none}
+
+.actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  justify-content:center;
+}
+.btn{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:8px 14px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background:rgba(2,6,23,.6);
+  color:#fff;
+  font-size:12px;
+  text-decoration:none;
+  cursor:pointer;
+}
+.dot{
+  width:9px;height:9px;border-radius:50%;
+  background:#fff;
+}
+
+/* HERO */
+.hero{
+  text-align:center;
+}
+.hero h1{
+  font-size:24px;
+  margin:6px 0;
+}
+.hero h1 span{color:var(--blue)}
+.hero p{
+  font-size:13px;color:#d1e3ff;
+}
+
+/* VIDEO */
+.video-box{
+  background:#000;
+  border-radius:16px;
+  overflow:hidden;
+  margin:8px 0;
+}
+video{
+  width:100%;
+  display:block;
+}
+.video-controls{
+  display:flex;
+}
+.video-controls button{
+  flex:1;
+  padding:10px;
+  border:none;
+  background:#111;
+  color:#fff;
+  font-size:12px;
+  cursor:pointer;
+}
+
+/* CTA AI */
+.cta a{
+  display:block;
+  width:100%;
+  padding:14px;
+  text-align:center;
+  border-radius:999px;
+  background:linear-gradient(135deg,var(--blue),#001a4f);
+  color:#fff;
+  font-weight:700;
+  text-decoration:none;
+}
+
+.socials{
+  display:flex;
+  gap:8px;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+
+footer{
+  margin-top:auto;
+  text-align:center;
+  font-size:10px;
+  color:#94a3b8;
+}
+</style>
+</head>
+
+<body>
+<div class="phone">
+
+<header>
+  <div class="logo">O</div>
+  <div>
+    <span>Opexis Digital</span><br>
+    <span>Opportunity Nexus</span>
+  </div>
+</header>
+
+<!-- CONTATTO -->
+<section class="card">
+  <h2>Valentina Valentini</h2>
+  <div class="meta">
+    Email: <a href="mailto:valentini82@libero.it">valentini82@libero.it</a><br>
+    Telefono: <a href="tel:+393486574328">3486574328</a>
+  </div>
+
+  <div class="actions">
+    <a class="btn" href="tel:+393486574328"><span class="dot"></span>Chiama</a>
+    <a class="btn" href="mailto:valentini82@libero.it"><span class="dot"></span>Email</a>
+    <a class="btn" href="https://www.facebook.com/share/1aZdKg9gwZ/" target="_blank"><span class="dot"></span>Facebook</a>
+    <a class="btn" href="https://www.instagram.com/chris.valentina?igsh=MTZkY2twb2ttdXV1bw==" target="_blank"><span class="dot"></span>Instagram</a>
+    <a class="btn" href="https://www.threads.com/@chris.valentina" target="_blank"><span class="dot"></span>Threads</a>
+    <button class="btn" onclick="saveContact()"><span class="dot"></span>Salva in rubrica</button>
+  </div>
+</section>
+
+<!-- HERO -->
+<section class="hero">
+  <h1>Il marketing <span>con AI</span></h1>
+
+  <!-- VIDEO -->
+  <div class="video-box">
+    <video id="introVideo" autoplay muted playsinline>
+      <source src="video_intro.mp4" type="video/mp4">
+    </video>
+
+    <div class="video-controls">
+      <button onclick="enableAudio()">🔊 Attiva audio</button>
+      <button onclick="stopVideo()">⏹ Stop</button>
+    </div>
+  </div>
+
+  <p>Scopri Twynet: social professionale, AI, formazione e opportunità di business.</p>
+</section>
+
+<!-- CTA AI -->
+<section class="cta">
+  <a href="ai.html">💬 Parla con l’AI</a>
+</section>
+
+<!-- SOCIAL OPEXIS -->
+<section class="socials">
+  <a class="btn" href="https://www.instagram.com/opexis.digital/" target="_blank"><span class="dot"></span>Opexis IG</a>
+  <a class="btn" href="https://www.facebook.com/profile.php?id=61580851595121" target="_blank"><span class="dot"></span>Opexis FB</a>
+  <a class="btn" href="https://www.linkedin.com/company/opexis/" target="_blank"><span class="dot"></span>LinkedIn</a>
+</section>
+
+<footer>
+© <span id="year"></span> Opexis Digital
+</footer>
+
+</div>
+
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
+
+const video = document.getElementById("introVideo");
+
+function enableAudio(){
+  video.muted = false;
+  video.volume = 1;
+  video.play();
+}
+
+function stopVideo(){
+  video.pause();
+  video.currentTime = 0;
+}
+
+function saveContact(){
+  const vcf=`BEGIN:VCARD
+VERSION:3.0
+FN:Valentina Valentini
+N:Valentini;Valentina;;;
+TEL;TYPE=CELL:+393486574328
+EMAIL:valentini82@libero.it
+X-SOCIALPROFILE;TYPE=facebook:https://www.facebook.com/share/1aZdKg9gwZ/
+X-SOCIALPROFILE;TYPE=instagram:https://www.instagram.com/chris.valentina?igsh=MTZkY2twb2ttdXV1bw==
+X-SOCIALPROFILE;TYPE=threads:https://www.threads.com/@chris.valentina
+END:VCARD`;
+
+  const blob=new Blob([vcf],{type:"text/vcard"});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement("a");
+  a.href=url;
+  a.download="valentina-valentini.vcf";
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+}
+</script>
+
+</body>
+</html>
